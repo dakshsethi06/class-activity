@@ -1,0 +1,109 @@
+Constructing hypergraph incidence matrix! 
+(It may take several minutes! Please wait patiently!)
+Classification on ModelNet40 dataset!!! class number: 40
+use MVCNN feature: False
+use GVCNN feature: True
+use MVCNN feature for structure: True
+use GVCNN feature for structure: True
+Configuration -> Start
+{'K_neigs': [10],
+ 'ckpt_folder': 'D:\\class ass\\result\\hgnn\\ckpt',
+ 'data_root': 'D:\\class ass\\datset',
+ 'decay_rate': 0.7,
+ 'decay_step': 200,
+ 'drop_out': 0.5,
+ 'gamma': 0.9,
+ 'graph_type': 'hypergraph',
+ 'is_probH': True,
+ 'lr': 0.001,
+ 'm_prob': 1.0,
+ 'max_epoch': 600,
+ 'milestones': [100],
+ 'modelnet40_ft': 'D:\\class ass\\datset\\ModelNet40_mvcnn_gvcnn.mat',
+ 'n_hid': 128,
+ 'ntu2012_ft': 'D:\\class ass\\datset\\NTU2012_mvcnn_gvcnn.mat',
+ 'on_dataset': 'ModelNet40',
+ 'print_freq': 50,
+ 'result_root': 'D:\\class ass\\result\\hgnn',
+ 'result_sub_folder': 'D:\\class ass\\result\\hgnn\\hypergraph_ModelNet40',
+ 'use_gvcnn_feature': True,
+ 'use_gvcnn_feature_for_structure': True,
+ 'use_mvcnn_feature': False,
+ 'use_mvcnn_feature_for_structure': True,
+ 'weight_decay': 0.0005}
+Configuration -> End
+----------
+Epoch 0/599
+train Loss: 4.7846 Acc: 0.0281
+val Loss: 17.4641 Acc: 0.1398
+Best val Acc: 0.139789
+--------------------
+----------
+Epoch 50/599
+train Loss: 0.1370 Acc: 0.9806
+val Loss: 0.8658 Acc: 0.9615
+Best val Acc: 0.966775
+--------------------
+----------
+Epoch 100/599
+train Loss: 0.0883 Acc: 0.9846
+val Loss: 0.6488 Acc: 0.9660
+Best val Acc: 0.966775
+--------------------
+----------
+Epoch 150/599
+train Loss: 0.0758 Acc: 0.9843
+val Loss: 0.6130 Acc: 0.9652
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 200/599
+train Loss: 0.0693 Acc: 0.9855
+val Loss: 0.6356 Acc: 0.9623
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 250/599
+train Loss: 0.0640 Acc: 0.9851
+val Loss: 0.6225 Acc: 0.9607
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 300/599
+train Loss: 0.0625 Acc: 0.9863
+val Loss: 0.6198 Acc: 0.9627
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 350/599
+train Loss: 0.0588 Acc: 0.9871
+val Loss: 0.5941 Acc: 0.9615
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 400/599
+train Loss: 0.0572 Acc: 0.9866
+val Loss: 0.6092 Acc: 0.9611
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 450/599
+train Loss: 0.0570 Acc: 0.9874
+val Loss: 0.5950 Acc: 0.9623
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 500/599
+train Loss: 0.0558 Acc: 0.9883
+val Loss: 0.5973 Acc: 0.9635
+Best val Acc: 0.967585
+--------------------
+----------
+Epoch 550/599
+train Loss: 0.0551 Acc: 0.9875
+val Loss: 0.6137 Acc: 0.9631
+Best val Acc: 0.967585
+--------------------
+
+Training complete in 9m 0s
+Best val Acc: 0.967585

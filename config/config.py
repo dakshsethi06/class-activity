@@ -15,10 +15,15 @@ def get_config(dir='config/config.yaml'):
         seq = [str(tmp) for tmp in seq]
         return ''.join(seq)
 
-    yaml.add_constructor('!join', join)
-    yaml.add_constructor('!concat', concat)
+    # Create a custom loader with the constructors
+    class CustomLoader(yaml.FullLoader):
+        pass
+    
+    CustomLoader.add_constructor('!join', join)
+    CustomLoader.add_constructor('!concat', concat)
+    
     with open(dir, 'r') as f:
-        cfg = yaml.load(f)
+        cfg = yaml.load(f, Loader=CustomLoader)
 
     check_dirs(cfg)
 

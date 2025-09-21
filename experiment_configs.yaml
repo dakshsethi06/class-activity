@@ -1,0 +1,183 @@
+# Enhanced HGNN Experiment Configurations
+# This file contains various experiment configurations for hyperparameter tuning
+
+# Base configuration
+base_config: &base
+  data_root: &d_r D:\class ass\datset
+  modelnet40_ft: !join [*d_r, ModelNet40_mvcnn_gvcnn.mat]
+  ntu2012_ft: !join [*d_r, NTU2012_mvcnn_gvcnn.mat]
+  result_root: &r_r D:\class ass\result\hgnn
+  result_sub_folder: !join [*r_r, experiments]
+  ckpt_folder: !join [*r_r, ckpt]
+
+# Dataset configurations
+datasets:
+  ModelNet40:
+    on_dataset: ModelNet40
+    n_classes: 40
+  NTU2012:
+    on_dataset: NTU2012
+    n_classes: 60
+
+# Network depth experiments
+network_depths:
+  shallow:
+    depth: 2
+    hidden_dims: [128]
+  medium:
+    depth: 3
+    hidden_dims: [256, 128]
+  deep:
+    depth: 4
+    hidden_dims: [512, 256, 128]
+  very_deep:
+    depth: 5
+    hidden_dims: [512, 256, 128, 64]
+
+# Hyperparameter ranges
+hyperparameters:
+  learning_rates: [0.0001, 0.001, 0.01, 0.1]
+  hidden_sizes: [64, 128, 256, 512]
+  dropout_rates: [0.1, 0.3, 0.5, 0.7]
+  weight_decays: [0.0001, 0.001, 0.01]
+  
+  # Optimizers
+  optimizers:
+    adam:
+      type: adam
+      lr: 0.001
+      weight_decay: 0.0005
+    sgd:
+      type: sgd
+      lr: 0.01
+      weight_decay: 0.0005
+      momentum: 0.9
+    adamw:
+      type: adamw
+      lr: 0.001
+      weight_decay: 0.01
+  
+  # Learning rate schedulers
+  schedulers:
+    step:
+      type: step
+      milestones: [100, 200]
+      gamma: 0.9
+    cosine:
+      type: cosine
+      T_max: 600
+    plateau:
+      type: plateau
+      mode: max
+      patience: 50
+      factor: 0.5
+
+# Hypergraph construction parameters
+hypergraph_params:
+  K_neigs_options:
+    - [5]
+    - [10]
+    - [15]
+    - [5, 10]
+    - [10, 15]
+    - [5, 10, 15]
+  
+  m_prob_options: [0.5, 1.0, 1.5, 2.0]
+  is_probH_options: [true, false]
+
+# Feature configuration experiments
+feature_configs:
+  mvcnn_only:
+    use_mvcnn_feature: true
+    use_gvcnn_feature: false
+    use_mvcnn_feature_for_structure: true
+    use_gvcnn_feature_for_structure: false
+  
+  gvcnn_only:
+    use_mvcnn_feature: false
+    use_gvcnn_feature: true
+    use_mvcnn_feature_for_structure: false
+    use_gvcnn_feature_for_structure: true
+  
+  combined_features:
+    use_mvcnn_feature: true
+    use_gvcnn_feature: true
+    use_mvcnn_feature_for_structure: true
+    use_gvcnn_feature_for_structure: true
+  
+  mixed_structure:
+    use_mvcnn_feature: true
+    use_gvcnn_feature: true
+    use_mvcnn_feature_for_structure: false
+    use_gvcnn_feature_for_structure: true
+
+# Training configurations
+training_configs:
+  quick_test:
+    max_epoch: 50
+    print_freq: 10
+  
+  standard:
+    max_epoch: 300
+    print_freq: 50
+  
+  extended:
+    max_epoch: 600
+    print_freq: 100
+  
+  long_training:
+    max_epoch: 1000
+    print_freq: 100
+
+# Experiment presets
+experiment_presets:
+  quick_validation:
+    datasets: [ModelNet40]
+    network_depths: [shallow, medium]
+    feature_configs: [gvcnn_only]
+    training_configs: [quick_test]
+    hyperparameters:
+      learning_rates: [0.001, 0.01]
+      hidden_sizes: [128, 256]
+      dropout_rates: [0.5]
+  
+  depth_experiment:
+    datasets: [ModelNet40]
+    network_depths: [shallow, medium, deep, very_deep]
+    feature_configs: [gvcnn_only]
+    training_configs: [standard]
+    hyperparameters:
+      learning_rates: [0.001]
+      hidden_sizes: [256]
+      dropout_rates: [0.5]
+  
+  hyperparameter_tuning:
+    datasets: [ModelNet40]
+    network_depths: [medium]
+    feature_configs: [gvcnn_only, combined_features]
+    training_configs: [standard]
+    hyperparameters:
+      learning_rates: [0.0001, 0.001, 0.01]
+      hidden_sizes: [128, 256, 512]
+      dropout_rates: [0.3, 0.5, 0.7]
+  
+  hypergraph_experiment:
+    datasets: [ModelNet40]
+    network_depths: [medium]
+    feature_configs: [gvcnn_only]
+    training_configs: [standard]
+    hypergraph_params:
+      K_neigs_options: [[5], [10], [15], [5, 10]]
+      m_prob_options: [0.5, 1.0, 1.5]
+      is_probH_options: [true, false]
+  
+  full_experiment:
+    datasets: [ModelNet40, NTU2012]
+    network_depths: [shallow, medium, deep]
+    feature_configs: [mvcnn_only, gvcnn_only, combined_features]
+    training_configs: [extended]
+    hyperparameters:
+      learning_rates: [0.0001, 0.001, 0.01]
+      hidden_sizes: [128, 256, 512]
+      dropout_rates: [0.3, 0.5, 0.7]
+

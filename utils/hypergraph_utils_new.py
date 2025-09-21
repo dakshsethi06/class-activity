@@ -179,3 +179,4 @@ def construct_H_with_KNN(X, K_neigs=[10], split_diff_scale=False, is_probH=True,
         else:
             H.append(H_tmp)
     return H
+
